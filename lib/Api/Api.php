@@ -14,6 +14,7 @@ use Mautic\Auth\ApiAuth;
 use Mautic\Auth\AuthInterface;
 use Mautic\QueryBuilder\QueryBuilder;
 use Psr\Log\LoggerAwareInterface;
+use Psr\Log\LoggerAwareTrait;
 use Psr\Log\LoggerInterface;
 use Psr\Log\NullLogger;
 
@@ -22,6 +23,7 @@ use Psr\Log\NullLogger;
  */
 class Api implements LoggerAwareInterface
 {
+    use LoggerAwareTrait;
     /**
      * Used by unit testing to force use of BC endpoints.
      *
@@ -91,11 +93,6 @@ class Api implements LoggerAwareInterface
     private $auth;
 
     /**
-     * @var LoggerInterface
-     */
-    private $logger;
-
-    /**
      * @param string $baseUrl
      */
     public function __construct(AuthInterface $auth, $baseUrl = '')
@@ -117,18 +114,6 @@ class Api implements LoggerAwareInterface
         }
 
         return $this->logger;
-    }
-
-    /**
-     * Sets a logger.
-     *
-     * @return $this
-     */
-    public function setLogger(LoggerInterface $logger)
-    {
-        $this->logger = $logger;
-
-        return $this;
     }
 
     /**
